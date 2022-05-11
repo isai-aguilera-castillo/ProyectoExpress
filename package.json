@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/isai-aguilera-castillo/Practica3_U2.git#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "mysql": "^2.18.1"
   }
 }
