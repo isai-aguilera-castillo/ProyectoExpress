@@ -15,7 +15,16 @@ app.get('/', (request, response) => {
     });
 });
 
+// mostrar todos los usarios 
 
+app.get ('/users', (request, response) => {
+
+    pool.query('SELECT *FROM users', (error, result) => {
+        if (error) throw error; 
+        response.send(result);
+    });
+
+});
 
 
 
