@@ -1,6 +1,7 @@
 // cargue la conexion del grupo MySQl 
 const { response } = require('express');
 const { request } = require('express');
+const { get } = require('express/lib/response');
 const pool= require('../data/config');
 
 //ruta de la app 
@@ -26,6 +27,16 @@ app.get ('/users', (request, response) => {
 
 });
 
+//mostrar un solo usuario por ID 
+app,get('/users/:id', (request, response) =>{
+    const id = request.params.id;
+
+    pool.query('SELECT * FROM users WHERE id = ?', id, (error, result) => {
+        if (error) throw error;
+
+        response.send(result);
+    });
+});
 
 
 }
