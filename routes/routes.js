@@ -1,6 +1,7 @@
 // cargue la conexion del grupo MySQl 
 const { response } = require('express');
 const { request } = require('express');
+const res = require('express/lib/response');
 const { get } = require('express/lib/response');
 const pool= require('../data/config');
 
@@ -50,6 +51,22 @@ app.post('/users', (request, response) => {
     });
 
 });
+
+//actualizar un usario existente 
+
+app.put ('/users/:id', (request, response) => {
+    const id = request.params.id;
+  pool.query('UPDATE users SET? WHERE id=?', [request.body, id], (error, result) => {
+
+    response.send('User updated successfully.');
+  });
+
+
+
+
+});
+
+
 
 
 }
