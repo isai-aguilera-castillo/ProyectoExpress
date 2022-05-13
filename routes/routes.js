@@ -1,6 +1,6 @@
 // cargue la conexion del grupo MySQl 
 
-const pool= require('../data/config');
+const pool=require('../data/config');
 
 //ruta de la app 
 
@@ -16,9 +16,9 @@ app.get('/', (request, response) => {
 
 // mostrar todos los usarios 
 
-app.get ('/users', (request, response) => {
+app.get('/users', (request, response) => {
 
-    pool.query('SELECT *FROM users', (error, result) => {
+    pool.query ('SELECT * FROM users', (error, result) => {
         if (error) throw error; 
         response.send(result);
     });
@@ -30,7 +30,7 @@ app.get('/users/:id', (request, response) =>{
     const id = request.params.id;
 
     pool.query('SELECT * FROM users WHERE id = ?', id, (error, result) => {
-        if (error) throw error;
+        if (error)throw error;
 
         response.send(result);
     });
@@ -42,7 +42,7 @@ app.post('/users', (request, response) => {
  
     pool.query('INSERT INTO users SET ?', request.body, (error, result) => {
 
-        if (error) throw error; 
+        if(error)throw error; 
 
         response.status(201).send(`User added with ID: ${result, insertId}`);
     });
