@@ -17,7 +17,7 @@ app.listen(3000, function(){
 */
 
 //requiere packages and set the port
-const express = require ('express');
+const express = require('express');
 const port = 3002;
 // para permitir el manejo de POST y PUT 
 

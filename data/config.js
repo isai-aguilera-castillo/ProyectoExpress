@@ -1,6 +1,6 @@
 
 
-const mysql = require ('mysql');
+const mysql = require('mysql');
 
 // set database connection credentials 
 
