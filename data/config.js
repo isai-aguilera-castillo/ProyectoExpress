@@ -7,8 +7,8 @@ const mysql = require('mysql');
 const config = {
     host: 'localhost',
     user: 'root',
-    password: 'qwerty', 
-    database: 'api'
+    password: 'Castillo20$', 
+    database: 'API'
 };
 
 //ctreate a my sql pool
