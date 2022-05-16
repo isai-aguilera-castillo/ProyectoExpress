@@ -2,7 +2,7 @@ const sql = require('mssql');
 
 //Set database conecction credentials
 const config = {
-    server: 'localhost',
+    server: 'ISAIRED',
     user: 'aguilera',
     password: 'qwerty',
     database: 'api',
