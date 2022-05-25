@@ -1,68 +1,80 @@
+// cargue la conexion del grupo MySQl 
 
+const pool=require('../data/config');
 
-const pool = require('../data/config');
+//ruta de la app 
 
-const router = function(app) {
-    app.get('/', function(request, response){
-        response.send({
-            message: 'Bienvenido a Node.js Express REST API'
-        });
+const router = app => {
+//mostrar mesnaje de la bienvenida de root 
+
+app.get('/', (request, response) => {
+
+    response.send({
+        message: 'Bienvendio a Node.js Express API!'
+    });
+});
+
+// mostrar todos los usarios 
+
+app.get('/users', (request, response) => {
+
+    pool.query ('SELECT * FROM users', (error, result) => {
+        if (error) throw error; 
+        response.send(result);
     });
 
-    app.get('/users', function(request, response){
-        pool.query('SELECT * FROM users', function(error, result){
-            if (error)
-                throw error;
-            
-            response.send(result);
-        });
+});
+
+//mostrar un solo usuario por ID 
+app.get('/users/:id', (request, response) =>{
+    const id = request.params.id;
+
+    pool.query('SELECT * FROM users WHERE id = ?', id, (error, result) => {
+        if (error)throw error;
+
+        response.send(result);
+    });
+});
+
+// Agregar un nuevo usario 
+
+app.post('/users', (request, response) => {
+ 
+    pool.query('INSERT INTO users SET ?', request.body, (error, result) => {
+
+        if(error)throw error; 
+
+        response.status(201).send(`User added with ID: ${result, insertId}`);
     });
 
-    app.get('/users/:id', function(request, response){
-        const {id} = request.params;
+});
 
-        pool.query(`SELECT * FROM users WHERE id = ${id}`, function(error, result){
-            if (error)
-                throw error;
-            
-            response.send(result);
-        });
+//actualizar un usario existente 
+
+app.put ('/users/:id', (request, response) => {
+    const id = request.params.id;
+  pool.query('UPDATE users SET? WHERE id=?', [request.body, id], (error, result) => {
+
+    response.send('User updated successfully.');
+  });
+
+});
+
+
+
+//eliminar un usario 
+app.delete('/users/:id', (request, response) => {
+    const id = request.params.id;
+    pool.query('DELETE FROM users WHERE id = ?', id, (error, result) => {
+
+       if (error) throw error;
+       response.send('User deleted');
+
     });
+});
 
-    app.post('/users', function(request, response){
-        const {nombre, apellido} = request.body;
-        pool.query(`INSERT INTO users VALUES('${nombre}', '${apellido}')`, function(error, result){
-            if (error)
-                throw error;
-            
-            response.status(201).send(`User added.`);
-        });
-    });
 
-    app.put('/users/:id', function(request, response){
-        const {id} = request.params;
-        const {nombre, apellido} = request.body;
+}
 
-        pool.query(`UPDATE users SET nombre = '${nombre}', apellido = '${apellido}' WHERE id = ${id}`, function(error, result){
-            if (error)
-                throw error;
-            
-            response.send(`User updated successfully.`);
-        });
-    });
-
-    app.delete('/users/:id', function(request, response){
-        const {id} = request.params;
-
-        pool.query(`DELETE FROM users WHERE id = ${id}`, function(error, result){
-            if (error)
-                throw error;
-            
-            response.send(`User deleted.`);
-        });
-    });
-
-};
-
+//Exportortar el router 
 module.exports = router;
-
